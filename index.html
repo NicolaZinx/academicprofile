@@ -1,0 +1,673 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>杨幸 - 个人简历</title>
+  <style>
+    :root { 
+      --primary-color: #1f4e79; 
+      --secondary-color: #f4f4f4; 
+      --accent-color: #ffd54f; 
+      --light-text: #666;
+      --border-color: #ddd;
+      --link-color: #3a6fa5;
+      --link-hover: #5a8dc5;
+    }
+    body { margin: 0; padding: 0; font-family: "Source Sans Pro", sans-serif; background: #fff; color: #333; }
+    .container { max-width: 900px; margin: 20px auto; display: grid; grid-template-columns: 1fr; }
+    @media (min-width: 768px) { .container { grid-template-columns: 30% 70%; grid-gap: 20px; } }
+   .sidebar { background: var(--secondary-color); padding: 20px; }
+.photo {
+  width: 80%;
+  position: relative;
+  margin: 0 auto 20px;
+  padding-top: 80%;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--primary-color);
+}
+.photo img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+    .main { padding: 20px; }
+    h1 { font-size: 2em; margin: 0 0 5px; color: var(--primary-color); }
+    h2 { font-size: 1.2em; margin-top: 20px; color: var(--primary-color); border-bottom: 2px solid var(--primary-color); padding-bottom: 5px; }
+    h3 { font-size: 1em; margin: 10px 0 5px; color: var(--primary-color); }
+    ul, ol { margin: 0 0 10px 20px; }
+    .timeline li { margin-bottom: 10px; }
+    .footer { text-align: center; font-size: 0.8em; color: #888; margin: 20px 0; }
+    a { color: var(--primary-color); text-decoration: none; }
+    a:hover { text-decoration: underline; color: var(--link-hover); }
+    
+    /* 新设计样式 */
+    .research-section {
+      margin: 25px 0;
+    }
+    
+    .paper-card, .project-card {
+      margin-bottom: 16px;
+      padding: 15px;
+      border-radius: 6px;
+      background-color: #f8f9fa;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      position: relative;
+      border-left: 4px solid var(--primary-color);
+    }
+    
+    .paper-card:hover, .project-card:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transform: translateY(-2px);
+    }
+    
+    .paper-title, .project-title {
+      font-weight: bold;
+      color: var(--primary-color);
+      margin-bottom: 6px;
+      font-size: 1.05em;
+      padding-right: 90px;
+    }
+    
+    .paper-meta, .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 0.85em;
+    }
+    
+    .paper-tag, .project-tag {
+      display: inline-block;
+      background-color: rgba(31, 78, 121, 0.1);
+      color: var(--primary-color);
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.85em;
+    }
+    
+    .paper-journal, .project-org {
+      font-style: italic;
+      color: #555;
+    }
+    
+    .paper-date, .project-date {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 0.8em;
+      color: #777;
+    }
+    
+    .paper-actions, .project-actions {
+      margin-top: 8px;
+      display: flex;
+      gap: 10px;
+    }
+    
+    .paper-link, .project-link {
+      display: inline-flex;
+      align-items: center;
+      color: var(--primary-color);
+      text-decoration: none;
+      font-size: 0.85em;
+      background-color: rgba(31, 78, 121, 0.05);
+      padding: 4px 10px;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+    }
+    
+    .paper-link:hover, .project-link:hover {
+      background-color: rgba(31, 78, 121, 0.1);
+      text-decoration: none;
+    }
+    
+    .paper-link:before, .project-link:before {
+      content: "🔗";
+      margin-right: 4px;
+      font-size: 0.9em;
+    }
+    
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 20px 0 15px;
+    }
+    
+    .section-header h2 {
+      margin: 0;
+      border-bottom: none;
+    }
+    
+    .filter-buttons {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .filter-button {
+      background-color: #f0f0f0;
+      border: none;
+      border-radius: 4px;
+      padding: 5px 10px;
+      font-size: 0.8em;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .filter-button:hover, .filter-button.active {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    
+    .ai-portfolio-banner {
+      background-color: rgba(31, 78, 121, 0.05);
+      border-left: 4px solid var(--primary-color);
+      padding: 15px;
+      margin: 15px 0 25px;
+      border-radius: 0 4px 4px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    
+    .ai-portfolio-banner p {
+      margin: 0;
+      flex: 1;
+      line-height: 1.5;
+    }
+    
+    .ai-portfolio-button {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 8px 15px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-left: 15px;
+      transition: all 0.3s;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .ai-portfolio-button:hover {
+      background-color: #16395b;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      text-decoration: none;
+      color: white;
+    }
+    
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.7);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .modal.show {
+      display: block;
+      opacity: 1;
+    }
+    
+    .modal-content {
+      background-color: #fefefe;
+      margin: 5% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 800px;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+    
+    .close-modal {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      position: absolute;
+      top: 10px;
+      right: 15px;
+    }
+    
+    .close-modal:hover {
+      color: black;
+    }
+    
+    .modal-iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+    }
+    
+    .modal-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #ddd;
+      padding-right: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 侧边栏 -->
+    <aside class="sidebar">
+      <div class="photo">
+        <!-- 在此处替换为个人照片 -->
+        <img src="photo.jpg" alt="头像占位">
+      </div>
+      <h2>个人信息</h2>
+      <p>杨幸 · 中共党员<br>出生：1996年12月 · 湖北武汉</p>
+      <h2>联系方式</h2>
+      <p>TEL：13476250119<br>E-mail：302682523@qq.com</p>
+      <h2>语言 &amp; 技能</h2>
+      <ul>
+        <li>CET-6（584） / CET-4（519）</li>
+        <li>CET-SET6（B+） / CET-SET4（B+）</li>
+        <li>普通话二级甲等</li>
+        <li>中学英语教师资格证</li>
+        <li>中国舞十级证书</li>
+      </ul>
+      <h2>荣誉奖项</h2>
+      <ul>
+        <li>2021-2022 国家教育部国家奖学金（0.001%）</li>
+        <li>本硕博阶段浙江大学校级一等奖学金</li>
+        <li>青海师范大学创新创业一等奖学金（0.1%）</li>
+        <li>全国英语阅读大赛校、省、国奖</li>
+      </ul>
+    </aside>
+
+    <!-- 主内容 -->
+    <section class="main">
+      <h1>个人简历</h1>
+      
+      <!-- AI专业作品集横幅 -->
+      <div class="ai-portfolio-banner">
+        <p><strong>AI领域专业能力展示:</strong> 查看我在AI思政课项目开发、大模型应用方面的专业详情，包含项目实践、技术能力与研究成果。</p>
+        <a href="https://nicolazinx.github.io/AI-nicola-portfolio/" target="_blank" class="ai-portfolio-button">访问AI作品集</a>
+      </div>
+      
+      <h2>教育经历</h2>
+      <ul class="timeline">
+        <li><strong>浙江大学 · 法学博士（在读）</strong><br>2022年9月 -- 至今<br>专业：思想政治教育<br>导师：马建青 教授</li>
+        <li><strong>青海师范大学 · 应用心理学硕士</strong><br>2020年9月 -- 2022年6月<br>专业：应用心理学<br>导师：李美华 教授</li>
+        <li><strong>湖北科技学院 · 应用心理学学士</strong><br>2014年9月 -- 2018年6月<br>专业：应用心理学<br>导师：卢会醒 教授</li>
+      </ul>
+
+      <!-- 科研成果部分 - 新设计 -->
+      <div class="research-section">
+        <div class="section-header">
+          <h2>科研成果</h2>
+          <div class="filter-buttons">
+            <button class="filter-button active">全部</button>
+            <button class="filter-button">CSSCI</button>
+            <button class="filter-button">SCI</button>
+            <button class="filter-button">一作</button>
+          </div>
+        </div>
+        
+        <!-- 已发表论文 -->
+        <div class="paper-card">
+          <div class="paper-date">2025/04 投稿中</div>
+          <div class="paper-title">高校家校社协同育人的意义审视、问题溯源与进路探寻</div>
+          <div class="paper-meta">
+            <span class="paper-tag">一作</span>
+            <span class="paper-tag">北大核心/CSSCI</span>
+            <span class="paper-journal">《思想政治教育研究》</span>
+          </div>
+          <div class="paper-actions">
+            <a href="https://navi.cnki.net/knavi/detail?p=fXbjn8VAwtH-zYJRe_KatQaAaL8mDxI8eG3V4pwQuLeFONPDoQhYz68taogFGmAEUG3YTwfiFKxMLh-zNvuxnziOtFLZG-fF16VERAQwbYQ=&amp;uniplatform=NZKPT" target="_blank" class="paper-link">查看期刊</a>
+          </div>
+        </div>
+        
+        <div class="paper-card">
+          <div class="paper-date">2025/06 即将见刊</div>
+          <div class="paper-title">全国学生心理健康监测预警系统构建的理论框架、关键技术与实施路径</div>
+          <div class="paper-meta">
+            <span class="paper-tag">二作</span>
+            <span class="paper-tag">北大核心/CSSCI</span>
+            <span class="paper-journal">《思想理论教育》</span>
+          </div>
+          <div class="paper-actions">
+            <a href="https://navi.cnki.net/knavi/detail?p=fXbjn8VAwtGBN2Rxca-ZbwCfVEvJed8wrQ53mr5ZwwbLQ0Yf3xqIDhfIPXSRXiG7MWhSy1Yzd6Fk7ZDZJKL_IIFYeHAGuIWA-lUJC_fJ0_s=&amp;uniplatform=NZKPT" target="_blank" class="paper-link">查看期刊</a>
+          </div>
+        </div>
+        
+        <div class="paper-card">
+          <div class="paper-date">2024/12 已见刊</div>
+          <div class="paper-title">社区心理健康服务模式与未来发展路径：基于案例研究法</div>
+          <div class="paper-meta">
+            <span class="paper-tag">二作</span>
+            <span class="paper-tag">CSSCI</span>
+            <span class="paper-journal">《社区心理学研究》</span>
+          </div>
+          <div class="paper-actions">
+            <a href="https://kns.cnki.net/kcms2/article/abstract?v=eo3P1e0toG6RbwgFlHDvqjPpUwY6hmxusZHBLiPwm79Az90HSL7cE9Kmei456Nk9RxHZoNAqyPZTtWWrFywShzQPVpIC2K0hlh1pfYaRN74Gsogyz_TVeTV0w2kUWGynZWJV03OxwgeMsp8aJCxmBJqUJRK7uWCCwn28tS4iczvpYsqH5Jm7mg==&amp;uniplatform=NZKPT&amp;language=CHS" target="_blank" class="paper-link">查看文章</a>
+          </div>
+        </div>
+        
+        <div class="paper-card">
+          <div class="paper-date">2025/03 拟见刊</div>
+          <div class="paper-title">音乐情绪二元性理论视角下的音乐表情性再探--生成式AI音乐对表情艺术的挑战</div>
+          <div class="paper-meta">
+            <span class="paper-tag">三作</span>
+            <span class="paper-tag">北大核心/CSSCI</span>
+            <span class="paper-journal">《中国音乐》</span>
+          </div>
+          <div class="paper-actions">
+            <a href="https://cmj.ccmusic.edu.cn/thesisDetails#10.12453/202412.0011&amp;lang=zh" target="_blank" class="paper-link">查看文章</a>
+          </div>
+        </div>
+        
+        <div class="paper-card">
+          <div class="paper-date">2024/12 已录用</div>
+          <div class="paper-title">"情绪轮"理论视阈下生成式AI音乐情感准度研究</div>
+          <div class="paper-meta">
+            <span class="paper-tag">二作</span>
+            <span class="paper-tag">CSSCI</span>
+            <span class="paper-journal">《电影研究》</span>
+          </div>
+          <div class="paper-actions">
+            <a href="javascript:void(0)" class="paper-link">查看文章</a>
+          </div>
+        </div>
+        
+        <div class="paper-card">
+          <div class="paper-date">2023/03</div>
+          <div class="paper-title">Relationship between Cognitive Learning Psychological and Neural Network Design Elements</div>
+          <div class="paper-meta">
+            <span class="paper-tag">一作</span>
+            <span class="paper-tag">SCI/JCR二区</span>
+            <span class="paper-journal">COMPLEXITY</span>
+          </div>
+          <div class="paper-actions">
+            <a href="https://kns.cnki.net/kcms2/article/abstract?v=eo3P1e0toG7sMkADiKb4cMmkGd7WOeFSEhCuKzHFZ321Hb5J8hVfdfTmZTgwV5GCXy_kZBzMlw9S6Uj19yqXSm4Jdb6QAxdkEp-CJ5iFjkJhPGI9j4Mf44dtHQ_QIXUoxSTN7Lh_dtU2T-Arz538uvvewU38J4NnzLBJiTatjdrl_Sc_lzXU0g3xdSBmnHxOU_Fqyo3EoZAIU00jT1Id12qMn96npefL&amp;uniplatform=NZKPT" target="_blank" class="paper-link">查看文章</a>
+          </div>
+        </div>
+        
+        <div class="paper-card">
+          <div class="paper-date">2022/02</div>
+          <div class="paper-title">新冠肺炎疫情对武汉市检验人员心理健康的影响研究</div>
+          <div class="paper-meta">
+            <span class="paper-tag">一作</span>
+            <span class="paper-journal">《心理月刊》</span>
+          </div>
+          <div class="paper-actions">
+            <a href="https://kns.cnki.net/kcms2/article/abstract?v=eo3P1e0toG6hWPoVmUVsBVJOaOacSdc7ZNEnef207rcLkfTVho1FrypgiH282PTpAZEZaz6DJ7HdYjf5AjmYXQaIBWdnA-U1mh4srm5UcDPXCh8Yc619YwaDAMsTTSC1Vcf4xZA-5X7hdw12Ibm8BFfjP8X_mI9wfPxgzAzS7AP49uOKSyNPpBOt1yg0HfHYRLIqXQPj2aQ=&amp;uniplatform=NZKPT" target="_blank" class="paper-link">查看文章</a>
+          </div>
+        </div>
+        
+        <div class="paper-card">
+          <div class="paper-date">2024/06</div>
+          <div class="paper-title">学业压力对学业成就的影响：来自结构方程模型的证据</div>
+          <div class="paper-meta">
+            <span class="paper-tag">三作</span>
+            <span class="paper-journal">《青海师范大学学报》</span>
+          </div>
+          <div class="paper-actions">
+            <a href="https://kns.cnki.net/kcms2/article/abstract?v=RN_8baVbY4dtz25LnlXvnNB8XHgguHAgMdunCR6dvkUsDZFAkxoC5Qc7ED5uyMc4NYwGC416B3tyC5s-5zb7A0tn5wZkTTyaP7OkeLM-TNJjknC-NF1kzEb2ERVgtPA52tP8O80fm4jzkQLK0NCmLHH7vw_Ek1v1xGNCItMXYX07AgfIYGeR8Q==&amp;uniplatform=NZKPT&amp;language=CHS" target="_blank" class="paper-link">查看文章</a>
+          </div>
+        </div>
+        
+        <div class="paper-card">
+          <div class="paper-date">2022/01</div>
+          <div class="paper-title">付费自习室经营模式和设立组织形式研究</div>
+          <div class="paper-meta">
+            <span class="paper-tag">二作</span>
+            <span class="paper-journal">《企业改革与管理》</span>
+          </div>
+          <div class="paper-actions">
+            <a href="https://kns.cnki.net/kcms2/article/abstract?v=RN_8baVbY4cLmD2yxAPykJm-Mc45dyCDtaX0KON-e0a6Q8qwiETqtkvXOAsh7qZX8NMpsXU-VeEacCOGMkGJs1ofa4uj8TfY0HW0EG2wr6VePPBxFyILE5JFAmPoNewtVD0SgeHQxiN8aTUsH_Jd_ajKSv3kMZlPlB6CVCkEQCkGaO4cANGX9g==&amp;uniplatform=NZKPT&amp;language=CHS" target="_blank" class="paper-link">查看文章</a>
+          </div>
+        </div>
+        
+        <div class="paper-card">
+          <div class="paper-date">2024/06</div>
+          <div class="paper-title">西部地区大学生体像障碍与自尊、交往焦虑关系的研究</div>
+          <div class="paper-meta">
+            <span class="paper-tag">一作</span>
+            <span class="paper-journal">《青海师范大学学报》</span>
+          </div>
+          <div class="paper-actions">
+            <a href="https://kns.cnki.net/kcms2/article/abstract?v=RN_8baVbY4ePeLXaodDJwSKHl9hmXteX7004-Fm4dN-bg9ajlyprDeCem4ua-PWI7GXVjf5_TZAZBeH4zPmRyZY-f6QsO-6qjsdj8DokShEubyDNQHrfIeeGhG4a1UMbODs2qCrNeY_0ZooMZJa4Ub_4GGd9HeE4WA1qw20LadH7CXcJapPmeg==&amp;uniplatform=NZKPT&amp;language=CHS" target="_blank" class="paper-link">查看文章</a>
+          </div>
+        </div>
+        
+        <div class="paper-card">
+          <div class="paper-date">2022/09</div>
+          <div class="paper-title">脱产备考生心理控制感及其与抑郁变化轨迹的关系研究</div>
+          <div class="paper-meta">
+            <span class="paper-tag">独作</span>
+            <span class="paper-journal">CNKI硕士论文</span>
+          </div>
+          <div class="paper-actions">
+            <a href="https://kns.cnki.net/kcms2/article/abstract?v=RN_8baVbY4fCto9iVqwFgH293m0e0iNXbBuJN-GZR7D-vIyUzZhgu9pAfx7dXjeyAQPL2huFLF0ZUFnMvWbnzdMoLKA51XrsqLmpfF7Mdan712-LMMKM6LEal5n8ido63ZcxGj21sqIGOcfyS_5dDoQVIggIe1U5VA5Htw4wpOc-bQ_EIvtb0IU_IZTCLBDt&amp;uniplatform=NZKPT&amp;language=CHS" target="_blank" class="paper-link">查看论文</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 教材编写 -->
+      <div class="research-section">
+        <h3>教材编写（省规划重点教材）</h3>
+        <div class="project-card">
+          <div class="project-title">《大学生心理健康教程》（数字教材）</div>
+          <div class="project-meta">
+            <span class="paper-tag">副主编</span>
+            <span class="paper-tag">第六章作者</span>
+          </div>
+          <ul style="margin-top: 8px; margin-bottom: 0;">
+            <li>承担数字人、严肃游戏编程、AI融媒体、智能体助教制作等工作</li>
+            <li>执笔5万字以上</li>
+       <p><em>注：点击 <a href="https://zjupsyebook.godaddysites.com/" target="_blank">查看教材介绍</a> 网页版</em></p>
+            <a href="https://etextbook.lifangshu.com/home" target="_blank" class="project-link">点击直达《大学生心理健康教程》（数字教材）</a>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- 项目与课题 - 新设计 -->
+      <div class="research-section">
+        <div class="section-header">
+          <h2>项目与课题</h2>
+          <div class="filter-buttons">
+            <button class="filter-button active">全部</button>
+            <button class="filter-button">国家级</button>
+            <button class="filter-button">校级</button>
+          </div>
+        </div>
+        
+        <!-- 国家社科重大课题 -->
+        <div class="project-card">
+          <div class="project-date">2022-至今</div>
+          <div class="project-title">国家社科基金重大项目"新时代中国社区心理学的理论建构与事件路径研究"</div>
+          <div class="project-meta">
+            <span class="paper-tag">国家级</span>
+            <span class="paper-tag">子课题参与</span>
+            <span class="project-org">项目编号: 22&amp;ZD184</span>
+          </div>
+          <div>子课题(之四)《新时代社区居民心理健康服务研究》，担任第一章作者《社区心理健康服务模式研究》（著作）</div>
+          <div class="project-actions">
+            <a href="https://news.swu.edu.cn/info/1026/9390.htm" target="_blank" class="project-link">项目信息</a>
+          </div>
+        </div>
+        
+        <!-- 浙江大学校级课题 -->
+        <div class="project-card">
+          <div class="project-date">2023/11-2024/03</div>
+          <div class="project-title">浙江大学"AI for Education"系列实证教学研究重点项目</div>
+          <div class="project-meta">
+            <span class="paper-tag">校级重点</span>
+            <span class="paper-tag">技术骨干</span>
+          </div>
+          <div>申报及结项材料撰写，撰写5万字材料：《AI思政课一点通的研发与应用》（2024/8-2025/5）</div>
+          <div class="project-actions">
+            <a href="https://ugrs.zju.edu.cn/2024/0508/c81467a2912386/page.htm" target="_blank" class="project-link">项目信息（167进31）</a>
+  <a href="https://bksy.zju.edu.cn/2024/0321/c28418a2893051/page.htm" target="_blank" class="project-link">重点立项（31进16）</a>
+            <a href="https://nicolazinx.github.io/AI-nicola-portfolio/" target="_blank" class="project-link">成果展示</a>
+          </div>
+        </div>
+        
+<div class="project-card">
+  <div class="project-date">2025/02</div>
+  <div class="project-title">浙江大学校级本科教材建设项目重点项目</div>
+  <div class="project-meta">
+    <span class="paper-tag">校级重点</span>
+  </div>
+  <div>奖评申报材料整理及初稿撰写，1万字材料：《大学生心理健康教程》（数字教材）</div>
+  <div class="project-actions">
+    <a href="https://bksy.zju.edu.cn/2024/0812/c77936a2952842/page.htm" target="_blank" class="project-link">项目信息</a>
+  </div>
+</div>
+        
+        <div class="project-card">
+          <div class="project-date">2025/05</div>
+          <div class="project-title">浙江大学首批本科“人工智能+高等教育”典型应用场景案例</div>
+          <div class="project-meta">
+            <span class="paper-tag">校级案例</span>
+            <span class="paper-tag">技术全责</span>
+          </div>
+          <div>开发全国首个基于思政大模型的AI思政课教辅智能体，撰写0.7万字材料：《“AI思政课一点通”智能体赋能思政课教学的探索》</div>
+          <div class="project-actions">
+            <a href="https://bksy.zju.edu.cn/2025/0512/c28418a3048066/page.htm" target="_blank" class="project-link">项目信息</a>
+          </div>
+        </div>
+      </div>
+
+      <h2>硕士课题</h2>
+      <ul>
+        <li>参与9项课题研究，包括省级2项（20QJG53、21039）和校级若干（XTCXZX202104、qhnucxcy2022032）</li>
+        <li>主持校级课题1项（qhnucxcy2021044）结项评级优秀</li>
+      </ul>
+
+      <h2>技能培训</h2>
+      <ul>
+         <li>省心理咨询师协会精神分析班</li>
+       <li>大学生心理危机干预实务（48h）</li>
+        <li>高校心理咨询师督导培训（72h）</li>
+        <li>焦点解决短期心理咨询技术</li>
+        <li>亲子沟通培训师（中级）</li>
+ 
+        <li>绘画心理技术（初级）</li>
+      </ul>
+
+      <h2>荣誉与竞赛</h2>
+      <h3>校级及以上荣誉</h3>
+      <ul>
+    <li>国家教育部"国家奖学金"  （2021-2022）
+     <li>浙江大学"社会实践优秀论文"（2024-2025） <a href="https://zhfw.zju.edu.cn/2025/0320/c5071a3029356/page.htm" target="_blank" class="paper-link">[查看证明]</a> 
+        <li>浙江大学"五好研究生""优秀研究生干部""优秀研究生"等5项（2022-2025）</li>
+<li>本硕"优秀研究生""一等奖学金""优秀毕业生"等若干（2018-2022）</li>
+      </ul>
+      <h3>竞赛奖项</h3>
+      <ul>
+        <li>浙江大学社会实践团队"校十佳"2次（2023-2025）</li>
+        <li>余杭区理论宣讲大赛金牌 &amp; 最佳人气奖（2023-2024）</li>
+        <li>全国英语大赛全国赛"三等奖"（2021-2022）</li>
+        <li>"外研社·国才杯"省级特等奖（共2人）（2020-2021）</li>
+        <li>互联网+创新创业大赛省级二等奖（2015-2018）</li>
+      </ul>
+
+      <h2>实践与实习</h2>
+      <ul>
+        <li>海外社会实践：泰国、欧洲多地（2023-2024）</li>
+        <li>秦山核电党课授课（40min，2024）</li>
+        <li>多场心理讲座与团辅（2015-2024）</li>
+        <li>小学支教、心理团辅、心理咨询团队实习（2014-2018）</li>
+      </ul>
+
+      <h2>社会职务</h2>
+      <ul>
+        <li>浙江大学宣讲团秘书长 / 讲师 / 助教（2023-2025）</li>
+        <li>外聘教师：浙江省同济科学职业技术学院（2023-2025）</li>
+        <li>多地宣讲团成员 &amp; 主持人（2018-2025）</li>
+      </ul>
+
+      <h2>国际交流</h2>
+      <ul>
+        <li>赴西班牙海梅一世大学游学（湖北省优秀大学生计划）</li>
+        <li>浙江大学"致远"计划泰国实践团骨干</li>
+      </ul>
+
+    </section>
+  </div>
+  <footer class="footer">© 2025 杨幸. 版权所有</footer>
+  
+  <!-- 模态框 -->
+  <div id="evidenceModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal()">×</span>
+      <h3 class="modal-title" id="modalTitle">证明材料</h3>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+  
+  <script>
+    // 模态框函数
+    function openModal(evidenceId, title) {
+      const modal = document.getElementById('evidenceModal');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalContent = document.getElementById('modalContent');
+      
+      modalTitle.textContent = title || '证明材料';
+      
+      // 根据ID加载不同的内容
+      if (evidenceId.startsWith('http')) {
+        // 如果是URL，则加载iframe
+        modalContent.innerHTML = `<iframe class="modal-iframe" src="${evidenceId}"></iframe>`;
+      } else {
+        // 否则加载图片占位符
+        modalContent.innerHTML = `<div style="text-align:center;padding:30px;background:#f5f5f5;border-radius:5px;">
+          <p style="margin-bottom:20px;">这里将展示 ${title} 的图片或文件</p>
+          <p style="color:#888;font-size:12px;">请将文件命名为 ${evidenceId}.jpg 或 ${evidenceId}.pdf 并上传到同一目录</p>
+        </div>`;
+      }
+      
+      modal.classList.add('show');
+    }
+    
+    function closeModal() {
+      const modal = document.getElementById('evidenceModal');
+      modal.classList.remove('show');
+    }
+    
+    // 点击模态框背景关闭
+    window.onclick = function(event) {
+      const modal = document.getElementById('evidenceModal');
+      if (event.target == modal) {
+        closeModal();
+      }
+    }
+    
+    // 筛选功能
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.filter-button').forEach(button => {
+        button.addEventListener('click', function() {
+          // 切换按钮激活状态
+          document.querySelectorAll('.filter-button').forEach(btn => {
+            btn.classList.remove('active');
+          });
+          this.classList.add('active');
+          
+          // 在这里可以添加实际的过滤功能
+          // 演示用，这里只做样式切换
+        });
+      });
+    });
+  </script>
+
+
+</body></html>
